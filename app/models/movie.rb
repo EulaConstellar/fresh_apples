@@ -1,31 +1,33 @@
 class Movie < ActiveRecord::Base
 
-      validates :title,
-        presence: true
+  has_many :reviews
 
-      validates :director,
-        presence: true
+  validates :title,
+    presence: true
 
-      validates :runtime_in_minutes,
-        numericality: { only_integer: true }
+  validates :director,
+    presence: true
 
-      validates :description,
-        presence: true
+  validates :runtime_in_minutes,
+    numericality: { only_integer: true }
 
-      validates :poster_image_url,
-        presence: true
+  validates :description,
+    presence: true
 
-      validates :release_date,
-        presence: true
+  validates :poster_image_url,
+    presence: true
 
-      validate :release_date_is_in_the_future
+  validates :release_date,
+    presence: true
 
-      protected
+  validate :release_date_is_in_the_future
 
-      def release_date_is_in_the_future
-        if release_date.present?
-          errors.add(:release_date, "should probably be in the future") if release_date < Date.today
-        end
-      end
+  protected
 
+  def release_date_is_in_the_future
+    if release_date.present?
+      errors.add(:release_date, "should probably be in the future") if release_date < Date.today
+    end
   end
+
+end
